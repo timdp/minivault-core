@@ -64,17 +64,13 @@ var manageKeychain = function(keychain) {
   });
 };
 
-var manage = function(secret) {
-  manageKeychain(new Keychain({secret: secret}));
-};
-
 var init = function() {
   readAll(['*Secret', '*Repeat'], function(secret, check) {
     if (secret !== check) {
       console.error('Secrets do not match!');
       init();
     } else {
-      manage(secret);
+      manageKeychain(new Keychain({secret: secret}));
     }
   });
 };
