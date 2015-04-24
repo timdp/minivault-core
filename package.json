@@ -1,0 +1,13 @@
+{
+  "name": "simple-keychain",
+  "version": "0.0.0",
+  "description": "A really rudimentary keychain. You probably don't want to use this.",
+  "main": "index.js",
+  "author": "Tim De Pauw <hi@tmdpw.eu> (https://tmdpw.eu/)",
+  "license": "MIT",
+  "dependencies": {
+    "es6-promisify": "^1.1.1",
+    "read": "^1.0.5",
+    "user-home": "^1.1.1"
+  }
+}
