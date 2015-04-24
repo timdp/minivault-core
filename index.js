@@ -18,6 +18,11 @@ Keychain.prototype.get = function(id) {
   return readFile(this._getPath(id)).then(this._decrypt.bind(this));
 };
 
+Keychain.prototype.getSync = function(id) {
+  var buffer = fs.readFileSync(this._getPath(id));
+  return this._decrypt(buffer);
+};
+
 Keychain.prototype.put = function(id, data) {
   var that = this;
   var root = this._getRootPath();
@@ -30,8 +35,22 @@ Keychain.prototype.put = function(id, data) {
     });
 };
 
+Keychain.prototype.putSync = function(id, data) {
+  var root = this._getRootPath();
+  try {
+    fs.statSync(root);
+  } catch (e) {
+    fs.mkdirSync(root);
+  }
+  fs.writeFileSync(this._getPath(id), this._encrypt(data));
+};
+
 Keychain.prototype.delete = function(id) {
-  return unlink(this._getPath(id));
+  unlink(this._getPath(id));
+};
+
+Keychain.prototype.deleteSync = function(id) {
+  fs.unlinkSync(this._getPath(id));
 };
 
 Keychain.prototype._encrypt = function(data) {
