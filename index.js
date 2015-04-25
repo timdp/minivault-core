@@ -14,6 +14,29 @@ var Minivault = function(options) {
   this._options = options || {};
 };
 
+Minivault.prototype.index = function() {
+  return readFile(this._getIndexPath())
+    .then(this._decrypt.bind(this), function(err) {
+      if (err.code === 'ENOENT') {
+        return [];
+      }
+      throw err;
+    });
+};
+
+Minivault.prototype.indexSync = function(id) {
+  var buffer = null;
+  try {
+    buffer = fs.readFileSync(this._getIndexPath(id));
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      return [];
+    }
+    throw err;
+  }
+  return this._decrypt(buffer);
+};
+
 Minivault.prototype.get = function(id) {
   return readFile(this._getPath(id)).then(this._decrypt.bind(this));
 };
@@ -24,15 +47,21 @@ Minivault.prototype.getSync = function(id) {
 };
 
 Minivault.prototype.put = function(id, data) {
-  var that = this;
   var root = this._getRootPath();
   return stat(root)
     .catch(function() {
       return mkdir(root);
     })
     .then(function() {
-      return writeFile(that._getPath(id), that._encrypt(data));
-    });
+      return writeFile(this._getPath(id), this._encrypt(data));
+    }.bind(this))
+    .then(this.index.bind(this))
+    .then(function(index) {
+      if (index.indexOf(id) < 0) {
+        index.push(id);
+        return this._writeIndex(index);
+      }
+    }.bind(this));
 };
 
 Minivault.prototype.putSync = function(id, data) {
@@ -43,14 +72,41 @@ Minivault.prototype.putSync = function(id, data) {
     fs.mkdirSync(root);
   }
   fs.writeFileSync(this._getPath(id), this._encrypt(data));
+  var index = this.indexSync();
+  if (index.indexOf(id) < 0) {
+    index.push(id);
+    this._writeIndexSync(index);
+  }
 };
 
 Minivault.prototype.delete = function(id) {
-  return unlink(this._getPath(id));
+  return unlink(this._getPath(id))
+    .then(this.index.bind(this))
+    .then(function(index) {
+      var i = index.indexOf(id);
+      if (i >= 0) {
+        index.splice(i, 1);
+        return this._writeIndex(index);
+      }
+    }.bind(this));
 };
 
 Minivault.prototype.deleteSync = function(id) {
   fs.unlinkSync(this._getPath(id));
+  var index = this.indexSync();
+  var i = index.indexOf(id);
+  if (i >= 0) {
+    index.splice(i, 1);
+    this._writeIndexSync(index);
+  }
+};
+
+Minivault.prototype._writeIndex = function(index) {
+  return writeFile(this._getIndexPath(), this._encrypt(index));
+};
+
+Minivault.prototype._writeIndexSync = function(index) {
+  fs.writeFileSync(this._getIndexPath(), this._encrypt(index));
 };
 
 Minivault.prototype._encrypt = function(data) {
@@ -71,6 +127,10 @@ Minivault.prototype._serialize = function(data) {
 
 Minivault.prototype._deserialize = function(data) {
   return JSON.parse(data);
+};
+
+Minivault.prototype._getIndexPath = function() {
+  return path.join(this._getRootPath(), 'index');
 };
 
 Minivault.prototype._getPath = function(id) {
