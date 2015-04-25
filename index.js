@@ -10,20 +10,20 @@ var readFile = promisify(fs.readFile),
     mkdir = promisify(fs.mkdir),
     stat = promisify(fs.stat);
 
-var Keychain = function(options) {
+var Minivault = function(options) {
   this._options = options || {};
 };
 
-Keychain.prototype.get = function(id) {
+Minivault.prototype.get = function(id) {
   return readFile(this._getPath(id)).then(this._decrypt.bind(this));
 };
 
-Keychain.prototype.getSync = function(id) {
+Minivault.prototype.getSync = function(id) {
   var buffer = fs.readFileSync(this._getPath(id));
   return this._decrypt(buffer);
 };
 
-Keychain.prototype.put = function(id, data) {
+Minivault.prototype.put = function(id, data) {
   var that = this;
   var root = this._getRootPath();
   return stat(root)
@@ -35,7 +35,7 @@ Keychain.prototype.put = function(id, data) {
     });
 };
 
-Keychain.prototype.putSync = function(id, data) {
+Minivault.prototype.putSync = function(id, data) {
   var root = this._getRootPath();
   try {
     fs.statSync(root);
@@ -45,50 +45,50 @@ Keychain.prototype.putSync = function(id, data) {
   fs.writeFileSync(this._getPath(id), this._encrypt(data));
 };
 
-Keychain.prototype.delete = function(id) {
+Minivault.prototype.delete = function(id) {
   unlink(this._getPath(id));
 };
 
-Keychain.prototype.deleteSync = function(id) {
+Minivault.prototype.deleteSync = function(id) {
   fs.unlinkSync(this._getPath(id));
 };
 
-Keychain.prototype._encrypt = function(data) {
+Minivault.prototype._encrypt = function(data) {
   var cipher = crypto.createCipher(this._getAlgorithm(), this._getSecret());
   var contents = this._serialize(data);
   return Buffer.concat([cipher.update(contents), cipher.final()]);
 };
 
-Keychain.prototype._decrypt = function(buffer) {
+Minivault.prototype._decrypt = function(buffer) {
   var decipher = crypto.createDecipher(this._getAlgorithm(), this._getSecret());
   var data = Buffer.concat([decipher.update(buffer), decipher.final()]);
   return this._deserialize(data.toString('utf8'));
 };
 
-Keychain.prototype._serialize = function(data) {
+Minivault.prototype._serialize = function(data) {
   return JSON.stringify(data);
 };
 
-Keychain.prototype._deserialize = function(data) {
+Minivault.prototype._deserialize = function(data) {
   return JSON.parse(data);
 };
 
-Keychain.prototype._getPath = function(id) {
+Minivault.prototype._getPath = function(id) {
   var sha1 = crypto.createHash('sha1');
   sha1.update(id);
   return path.join(this._getRootPath(), sha1.digest('hex'));
 };
 
-Keychain.prototype._getRootPath = function() {
-  return path.join(userHome, '.keychain');
+Minivault.prototype._getRootPath = function() {
+  return path.join(userHome, '.minivault');
 };
 
-Keychain.prototype._getSecret = function() {
+Minivault.prototype._getSecret = function() {
   return this._options.secret;
 };
 
-Keychain.prototype._getAlgorithm = function() {
+Minivault.prototype._getAlgorithm = function() {
   return this._options.algorithm || 'aes256';
 };
 
-module.exports = Keychain;
+module.exports = Minivault;

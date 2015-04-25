@@ -1,7 +1,44 @@
-Simple Keychain
-===============
+Minivault (Core)
+================
 
-A really rudimentary keychain. You probably don't want to use this.
+A pretty rudimentary vault. Keeps a key-value store under `~/.minivault`,
+encrypted with a password.
+
+This package provides the core API. For the Web front end, see
+[minivault](https://www.npmjs.com/package/minivault).
+
+Usage
+-----
+
+```js
+var Minivault = require('minivault-core');
+
+var vault = new Minivault({secret: 'myMasterPassword'});
+
+vault.get('someKey')
+  .then(function(data) {
+    console.info('Data for someKey:', data);
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
+
+vault.put('someOtherKey', data)
+  .then(function() {
+    console.info('Data stored');
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
+
+vault.delete('uselessKey')
+  .then(function() {
+    console.info('Key deleted');
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
+```
 
 Author
 ------

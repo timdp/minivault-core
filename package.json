@@ -1,7 +1,7 @@
 {
-  "name": "simple-keychain",
-  "version": "0.0.0",
-  "description": "A really rudimentary keychain. You probably don't want to use this.",
+  "name": "minivault-core",
+  "version": "0.0.1",
+  "description": "A pretty rudimentary vault.",
   "main": "index.js",
   "author": "Tim De Pauw <hi@tmdpw.eu> (https://tmdpw.eu/)",
   "license": "MIT",
