@@ -46,7 +46,7 @@ Minivault.prototype.putSync = function(id, data) {
 };
 
 Minivault.prototype.delete = function(id) {
-  unlink(this._getPath(id));
+  return unlink(this._getPath(id));
 };
 
 Minivault.prototype.deleteSync = function(id) {
