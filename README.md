@@ -38,7 +38,7 @@ vault.delete('uselessKey')
   });
 
 vault.index()
-  then(function(keys) {
+  .then(function(keys) {
     console.info('Keys in vault:', keys);
   })
   .catch(function(err) {
