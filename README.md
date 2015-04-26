@@ -1,5 +1,4 @@
-Minivault (Core)
-================
+# Minivault (Core) [![npm](https://img.shields.io/npm/v/minivault-core.svg)](https://www.npmjs.com/package/minivault-core) ![Bower](https://img.shields.io/bower/v/minivault-core.svg) [![Build Status](https://img.shields.io/travis/timdp/minivault-core.svg)](https://travis-ci.org/timdp/minivault-core) [![Coverage Status](https://img.shields.io/coveralls/timdp/minivault-core.svg)](https://coveralls.io/r/timdp/minivault-core)
 
 A pretty rudimentary vault. Keeps a key-value store under `~/.minivault`,
 encrypted with a password.
@@ -7,8 +6,7 @@ encrypted with a password.
 This package provides the core API. For the Web front end, see
 [minivault](https://www.npmjs.com/package/minivault).
 
-Usage
------
+## Usage
 
 ```js
 var Minivault = require('minivault-core');
@@ -40,13 +38,11 @@ vault.delete('uselessKey')
   });
 ```
 
-Author
-------
+## Author
 
 [Tim De Pauw](https://tmdpw.eu/)
 
-License
--------
+## License
 
 Copyright &copy; 2015 Tim De Pauw
 

@@ -1,5 +1,6 @@
 var userHome = require('user-home'),
     promisify = require('es6-promisify'),
+    mkdirp_ = require('mkdirp'),
     crypto = require('crypto'),
     fs = require('fs'),
     path = require('path');
@@ -7,11 +8,17 @@ var userHome = require('user-home'),
 var readFile = promisify(fs.readFile),
     writeFile = promisify(fs.writeFile),
     unlink = promisify(fs.unlink),
-    mkdir = promisify(fs.mkdir),
-    stat = promisify(fs.stat);
+    stat = promisify(fs.stat),
+    mkdirp = promisify(mkdirp_);
 
-var Minivault = function(options) {
-  this._options = options || {};
+var Minivault = function(config) {
+  if (config === null || typeof config !== 'object') {
+    throw new Error('Invalid configuration');
+  }
+  if (typeof config.secret !== 'string' || config.secret.length === 0) {
+    throw new Error('Invalid secret');
+  }
+  this._config = config;
 };
 
 Minivault.prototype.index = function() {
@@ -50,7 +57,7 @@ Minivault.prototype.put = function(id, data) {
   var root = this._getRootPath();
   return stat(root)
     .catch(function() {
-      return mkdir(root);
+      return mkdirp(root);
     })
     .then(function() {
       return writeFile(this._getPath(id), this._encrypt(data));
@@ -69,7 +76,7 @@ Minivault.prototype.putSync = function(id, data) {
   try {
     fs.statSync(root);
   } catch (e) {
-    fs.mkdirSync(root);
+    mkdirp_.sync(root);
   }
   fs.writeFileSync(this._getPath(id), this._encrypt(data));
   var index = this.indexSync();
@@ -140,15 +147,16 @@ Minivault.prototype._getPath = function(id) {
 };
 
 Minivault.prototype._getRootPath = function() {
-  return path.join(userHome, '.minivault');
+  return (typeof this._config.root === 'string') ? this._config.root :
+    path.join(userHome, '.minivault');
 };
 
 Minivault.prototype._getSecret = function() {
-  return this._options.secret;
+  return this._config.secret;
 };
 
 Minivault.prototype._getAlgorithm = function() {
-  return this._options.algorithm || 'aes256';
+  return this._config.algorithm || 'aes256';
 };
 
 module.exports = Minivault;
