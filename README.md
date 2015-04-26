@@ -1,4 +1,4 @@
-# Minivault (Core) [![npm](https://img.shields.io/npm/v/minivault-core.svg)](https://www.npmjs.com/package/minivault-core) ![Bower](https://img.shields.io/bower/v/minivault-core.svg) [![Build Status](https://img.shields.io/travis/timdp/minivault-core.svg)](https://travis-ci.org/timdp/minivault-core) [![Coverage Status](https://img.shields.io/coveralls/timdp/minivault-core.svg)](https://coveralls.io/r/timdp/minivault-core)
+# Minivault (Core) [![npm](https://img.shields.io/npm/v/minivault-core.svg)](https://www.npmjs.com/package/minivault-core) [![Build Status](https://img.shields.io/travis/timdp/minivault-core.svg)](https://travis-ci.org/timdp/minivault-core) [![Coverage Status](https://img.shields.io/coveralls/timdp/minivault-core.svg)](https://coveralls.io/r/timdp/minivault-core)
 
 A pretty rudimentary vault. Keeps a key-value store under `~/.minivault`,
 encrypted with a password.
