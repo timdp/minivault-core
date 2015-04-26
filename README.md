@@ -36,7 +36,18 @@ vault.delete('uselessKey')
   .catch(function(err) {
     console.error(err);
   });
+
+vault.index()
+  then(function(keys) {
+    console.info('Keys in vault:', keys);
+  })
+  .catch(function(err) {
+    console.error(err);
+  });
 ```
+
+A synchronous API is also available. The corresponding functions are
+`getSync`, `putSync`, `deleteSync`, and `indexSync`.
 
 ## Author
 
