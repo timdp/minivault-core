@@ -12,41 +12,41 @@ and the
 ## Usage
 
 ```js
-var Minivault = require('minivault-core');
+var Minivault = require('minivault-core')
 
-var vault = new Minivault({secret: 'myMasterPassword'});
+var vault = new Minivault({secret: 'myMasterPassword'})
 
 vault.get('someKey')
-  .then(function(data) {
-    console.info('Data for someKey:', data);
+  .then(function (data) {
+    console.info('Data for someKey:', data)
   })
-  .catch(function(err) {
-    console.error(err);
-  });
+  .catch(function (err) {
+    console.error(err)
+  })
 
 vault.put('someOtherKey', data)
-  .then(function() {
-    console.info('Data stored');
+  .then(function () {
+    console.info('Data stored')
   })
-  .catch(function(err) {
-    console.error(err);
-  });
+  .catch(function (err) {
+    console.error(err)
+  })
 
 vault.delete('uselessKey')
-  .then(function() {
-    console.info('Key deleted');
+  .then(function () {
+    console.info('Key deleted')
   })
-  .catch(function(err) {
-    console.error(err);
-  });
+  .catch(function (err) {
+    console.error(err)
+  })
 
 vault.index()
-  .then(function(keys) {
-    console.info('Keys in vault:', keys);
+  .then(function (keys) {
+    console.info('Keys in vault:', keys)
   })
-  .catch(function(err) {
-    console.error(err);
-  });
+  .catch(function (err) {
+    console.error(err)
+  })
 ```
 
 A synchronous API is also available. The corresponding functions are
