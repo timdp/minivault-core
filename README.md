@@ -3,8 +3,11 @@
 A pretty rudimentary vault. Keeps a key-value store under `~/.minivault`,
 encrypted with a password.
 
-This package provides the core API. For the Web front end, see
-[minivault](https://www.npmjs.com/package/minivault).
+This package provides the core API.
+You may also be interested in the
+[Web front end](https://www.npmjs.com/package/minivault)
+and the
+[RESTful API](https://www.npmjs.com/package/minivault-rest).
 
 ## Usage
 

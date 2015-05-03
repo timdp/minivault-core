@@ -10,7 +10,6 @@
     "password"
   ],
   "author": "Tim De Pauw <hi@tmdpw.eu> (https://tmdpw.eu/)",
-  "license": "MIT",
   "engines": {
     "node": ">=0.10.0"
   },
