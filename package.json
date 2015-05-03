@@ -26,6 +26,7 @@
     "istanbul": "^0.3.13",
     "mocha": "^2.2.4",
     "mocha-lcov-reporter": "0.0.2",
+    "standard": "^3.7.3",
     "tmp": "0.0.25"
   },
   "main": "index.js",
@@ -33,7 +34,7 @@
     "index.js"
   ],
   "scripts": {
-    "test": "npm run standard && npm run mocha && node --version | grep -qv ^v0\\.10\\. || npm run coveralls",
+    "test": "npm run standard && npm run mocha && ( node --version | grep -qv ^v0\\.10\\. || npm run coveralls )",
     "standard": "node node_modules/standard/bin/cmd.js",
     "mocha": "node node_modules/mocha/bin/_mocha",
     "cover": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec",
