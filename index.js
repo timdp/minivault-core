@@ -1,3 +1,5 @@
+'use strict'
+
 var userHome = require('user-home')
 var promisify = require('es6-promisify')
 var mkdirp_ = require('mkdirp')
