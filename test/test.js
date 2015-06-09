@@ -52,24 +52,24 @@ describe('Minivault', function () {
 
     it('stores the secret', function () {
       var vault = new Minivault({secret: SECRET})
-      expect(vault._getSecret()).to.equal(SECRET)
+      expect(vault.secret).to.equal(SECRET)
     })
 
     it('stores the algorithm', function () {
       var algorithm = 'aes192'
       var vault = new Minivault({secret: SECRET, algorithm: algorithm})
-      expect(vault._getAlgorithm()).to.equal(algorithm)
+      expect(vault.algorithm).to.equal(algorithm)
     })
 
     it('defaults to aes256', function () {
       var vault = new Minivault({secret: SECRET})
-      expect(vault._getAlgorithm()).to.equal('aes256')
+      expect(vault.algorithm).to.equal('aes256')
     })
 
     it('stores the root path', function () {
       var tempDir = tmp.dirSync()
       var vault = new Minivault({secret: SECRET, root: tempDir.name})
-      expect(vault._getRootPath()).to.equal(tempDir.name)
+      expect(vault.rootPath).to.equal(tempDir.name)
       tempDir.removeCallback()
     })
   })
