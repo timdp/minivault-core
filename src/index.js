@@ -85,7 +85,7 @@ class Minivault {
       mkdirp_.sync(root)
     }
     fs.writeFileSync(this._getPath(id), this._encrypt(data))
-    var index = this.indexSync()
+    const index = this.indexSync()
     if (index.indexOf(id) < 0) {
       index.push(id)
       this._writeIndexSync(index)
@@ -95,7 +95,7 @@ class Minivault {
     return unlink(this._getPath(id))
       .then(() => this.index())
       .then(index => {
-        var i = index.indexOf(id)
+        const i = index.indexOf(id)
         if (i >= 0) {
           index.splice(i, 1)
           return this._writeIndex(index)
@@ -104,8 +104,8 @@ class Minivault {
   }
   deleteSync (id) {
     fs.unlinkSync(this._getPath(id))
-    var index = this.indexSync()
-    var i = index.indexOf(id)
+    const index = this.indexSync()
+    const i = index.indexOf(id)
     if (i >= 0) {
       index.splice(i, 1)
       this._writeIndexSync(index)
