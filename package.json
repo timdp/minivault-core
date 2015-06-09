@@ -20,14 +20,14 @@
     "user-home": "^1.1.1"
   },
   "devDependencies": {
-    "chai": "^2.2.0",
-    "chai-as-promised": "^5.0.0",
+    "chai": "^3.0.0",
+    "chai-as-promised": "^5.1.0",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.13",
     "mocha": "^2.2.4",
     "mocha-lcov-reporter": "0.0.2",
-    "standard": "^3.7.3",
-    "tmp": "0.0.25"
+    "standard": "^4.0.1",
+    "tmp": "0.0.26"
   },
   "main": "index.js",
   "files": [
