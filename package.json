@@ -1,6 +1,6 @@
 {
   "name": "minivault-core",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A pretty rudimentary vault.",
   "keywords": [
     "vault",
