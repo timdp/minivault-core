@@ -41,6 +41,7 @@
     "dist/index.js"
   ],
   "scripts": {
+    "prepublish": "gulp build",
     "test": "npm run standard && npm run mocha",
     "standard": "node node_modules/standard/bin/cmd.js {src,test}/**/*.js",
     "mocha": "node node_modules/mocha/bin/_mocha",
