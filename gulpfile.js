@@ -14,7 +14,9 @@ gulp.task('clean', function (cb) {
 gulp.task('build', function () {
   mkdirp.sync(dest)
   return gulp.src('src/**/*.js')
-    .pipe(plugins.plumber())
+    .pipe(plugins.plumber({
+      errorHandler: plugins.notify.onError('<%= error.message %>')
+    }))
     .pipe(plugins.babel({optional: ['runtime']}))
     .pipe(gulp.dest(dest))
 })

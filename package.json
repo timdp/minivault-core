@@ -28,6 +28,7 @@
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
     "gulp-load-plugins": "^0.10.0",
+    "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
     "istanbul": "^0.3.13",
     "mocha": "^2.2.4",
