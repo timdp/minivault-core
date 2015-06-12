@@ -1,17 +1,17 @@
 'use strict'
 
-var path = require('path')
-var Minivault = require('../../../')
+import path from 'path'
+import Minivault from '../../../'
 
-module.exports = function (SECRET, FIXTURES_PATH) {
-  var builders = [
+export default (SECRET, FIXTURES_PATH) => {
+  const builders = [
     'id_password_x3'
   ]
 
-  builders.forEach(function (builderID) {
-    var builder = require('./' + builderID)
-    var root = path.join(FIXTURES_PATH, builderID)
-    var vault = new Minivault({secret: SECRET, root: root})
+  for (let builderID of builders) {
+    const builder = require('./' + builderID)
+    const root = path.join(FIXTURES_PATH, builderID)
+    const vault = new Minivault({secret: SECRET, root})
     builder(vault)
-  })
+  }
 }

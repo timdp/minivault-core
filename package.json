@@ -21,19 +21,18 @@
     "user-home": "^1.1.1"
   },
   "devDependencies": {
+    "babel": "^5.5.6",
     "chai": "^3.0.0",
     "chai-as-promised": "^5.1.0",
-    "coveralls": "^2.11.2",
     "del": "^1.2.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-istanbul": "^0.10.0",
     "gulp-load-plugins": "^0.10.0",
+    "gulp-mocha": "^2.1.1",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
-    "istanbul": "^0.3.13",
-    "mocha": "^2.2.4",
-    "mocha-lcov-reporter": "0.0.2",
-    "standard": "^4.0.1",
     "tmp": "0.0.26"
   },
   "main": "dist/index.js",
@@ -42,12 +41,9 @@
     "dist/index.js"
   ],
   "scripts": {
-    "prepublish": "gulp build",
-    "test": "npm run standard && npm run mocha",
-    "standard": "node node_modules/standard/bin/cmd.js {src,test}/**/*.js",
-    "mocha": "node node_modules/mocha/bin/_mocha",
-    "cover": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec",
-    "coveralls": "node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && node node_modules/coveralls/bin/coveralls.js < coverage/lcov.info && rm -rf coverage"
+    "prepublish": "npm run build",
+    "build": "gulp build",
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
