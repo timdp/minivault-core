@@ -33,6 +33,7 @@
     "gulp-mocha": "^2.1.1",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
+    "isparta": "^3.0.3",
     "tmp": "0.0.26"
   },
   "main": "dist/index.js",
