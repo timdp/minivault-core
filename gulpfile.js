@@ -20,14 +20,14 @@ gulp.task('clean', function (cb) {
 
 gulp.task('build', ['test'], function () {
   mkdirp.sync(dest)
-  return gulp.src('src/**/*.js')
+  return gulp.src('src/**/*.es')
     .pipe(plumb())
     .pipe(plugins.babel({optional: ['runtime']}))
     .pipe(gulp.dest(dest))
 })
 
 const test = function () {
-  return gulp.src(['test/lib/setup.js', 'test/unit/**/*.js'], {read: false})
+  return gulp.src(['test/lib/setup.es', 'test/unit/**/*.es'], {read: false})
     .pipe(plumb())
     .pipe(plugins.mocha({reporter: 'dot'}))
 }
@@ -35,7 +35,7 @@ const test = function () {
 require('babel/register')
 
 gulp.task('coverage', function (done) {
-  gulp.src(['src/**/*.js'])
+  gulp.src(['src/**/*.es'])
     .pipe(plumb())
     .pipe(plugins.istanbul({instrumenter: isparta.Instrumenter}))
     .pipe(plugins.istanbul.hookRequire())
