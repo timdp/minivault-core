@@ -54,12 +54,12 @@ describe('Minivault', () => {
   describe('#index()', () => {
     it('returns an empty array by default', () => {
       const vault = getVault()
-      expect(vault.index()).to.eventually.deep.equal([])
+      return expect(vault.index()).to.eventually.deep.equal([])
     })
 
     it('returns stored contents', () => {
       const vault = getVault('id_password_x3')
-      expect(vault.index()).to.eventually.deep.equal(['id1', 'id2', 'id3'])
+      return expect(vault.index()).to.eventually.deep.equal(['id1', 'id2', 'id3'])
     })
 
     it('rejects on an uninitialized vault', () => {
@@ -92,8 +92,8 @@ describe('Minivault', () => {
 
   describe('#get()', () => {
     it('retrieves the data for an ID', () => {
-      const vault = getVault()
-      expect(vault.get('id1')).to.eventually.deep.equal({password: 'password1'})
+      const vault = getVault('id_password_x3')
+      return expect(vault.get('id1')).to.eventually.deep.equal({password: 'password1'})
     })
 
     it('rejects on a nonexistent ID', () => {
@@ -127,20 +127,20 @@ describe('Minivault', () => {
   describe('#put()', () => {
     it('stores the data for an ID', () => {
       const vault = getVault()
-      expect(vault.put('id1', {password: 'letmein'})
+      return expect(vault.put('id1', {password: 'letmein'})
         .then(() => vault.get('id1'))).to.eventually.deep.equal({password: 'letmein'})
     })
 
     it('overwrites data', () => {
       const vault = getVault()
       vault.putSync('id1', {password: 'letmein'})
-      expect(vault.put('id1', {password: 'letmeout'})
+      return expect(vault.put('id1', {password: 'letmeout'})
         .then(() => vault.get('id1'))).to.eventually.deep.equal({password: 'letmeout'})
     })
 
     it('updates the index', () => {
       const vault = getVault()
-      expect(vault.put('id1', {password: 'letmein'})
+      return expect(vault.put('id1', {password: 'letmein'})
         .then(() => vault.index())).to.eventually.deep.equal(['id1'])
     })
 
@@ -184,7 +184,7 @@ describe('Minivault', () => {
     it('removes data', () => {
       const vault = getVault()
       vault.putSync('id1', {password: 'letmein'})
-      expect(vault.delete('id1')
+      return expect(vault.delete('id1')
         .then(() => {
           try {
             vault.getSync('id1')
@@ -198,7 +198,7 @@ describe('Minivault', () => {
       const vault = getVault()
       vault.putSync('id1', {password: 'letmein'})
       vault.putSync('id2', {password: 'letmeout'})
-      expect(vault.delete('id1')
+      return expect(vault.delete('id1')
         .then(() => vault.index())).to.eventually.deep.equal(['id2'])
     })
 
