@@ -32,13 +32,13 @@ const test = function () {
     .pipe(plugins.mocha({reporter: 'dot'}))
 }
 
-require('babel/register')
+require('babel/register')({extensions: ['.es6']})
 
 gulp.task('coverage', function (done) {
   gulp.src(['src/**/*.es6'])
     .pipe(plumb())
     .pipe(plugins.istanbul({instrumenter: isparta.Instrumenter}))
-    .pipe(plugins.istanbul.hookRequire())
+    .pipe(plugins.istanbul.hookRequire({extensions: ['.es6']}))
     .on('finish', function () {
       return test()
         .pipe(plugins.istanbul.writeReports())
