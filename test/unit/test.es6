@@ -57,25 +57,35 @@ describe('Minivault', () => {
       return expect(vault.index()).to.eventually.deep.equal([])
     })
 
+    it('returns an empty array for an uninitialized vault', () => {
+      const vault = getVault('uninitialized')
+      return expect(vault.index()).to.eventually.deep.equal([])
+    })
+
     it('returns stored contents', () => {
       const vault = getVault('id_password_x3')
       return expect(vault.index()).to.eventually.deep.equal(['id1', 'id2', 'id3'])
     })
 
-    it('rejects on an uninitialized vault', () => {
-      const vault = getVault()
-      expect(vault.index()).to.be.rejected
-    })
-
     it('rejects on a bad secret', () => {
       const vault = getVault('id_password_x3', true)
-      expect(vault.index()).to.be.rejected
+      return expect(vault.index()).to.be.rejected
+    })
+
+    it('rejects on a corrupted vault', () => {
+      const vault = getVault('corrupted')
+      return expect(vault.index()).to.be.rejected
     })
   })
 
   describe('#indexSync()', () => {
     it('returns an empty array by default', () => {
       const vault = getVault()
+      expect(vault.indexSync()).to.deep.equal([])
+    })
+
+    it('returns an empty array for an uninitialized vault', () => {
+      const vault = getVault('uninitialized')
       expect(vault.indexSync()).to.deep.equal([])
     })
 
@@ -88,6 +98,11 @@ describe('Minivault', () => {
       const vault = getVault('id_password_x3', true)
       expect(() => vault.indexSync()).to.throw(Error)
     })
+
+    it('throws on a corrupted vault', () => {
+      const vault = getVault('corrupted')
+      expect(() => vault.indexSync()).to.throw(Error)
+    })
   })
 
   describe('#get()', () => {
@@ -98,12 +113,12 @@ describe('Minivault', () => {
 
     it('rejects on a nonexistent ID', () => {
       const vault = getVault('id_password_x3')
-      expect(vault.get('id42')).to.be.rejected
+      return expect(vault.get('id42')).to.be.rejected
     })
 
     it('rejects on a bad secret', () => {
       const vault = getVault('id_password_x3', true)
-      expect(vault.get('id1')).to.be.rejected
+      return expect(vault.get('id1')).to.be.rejected
     })
   })
 
@@ -148,7 +163,7 @@ describe('Minivault', () => {
       const vault = getVault()
       vault.putSync('id1', {password: 'letmein'})
       vault._config.secret = 'NOPE' + SECRET
-      expect(vault.put('id2', {password: 'letmein'})).to.be.rejected
+      return expect(vault.put('id2', {password: 'letmein'})).to.be.rejected
     })
   })
 
@@ -206,7 +221,7 @@ describe('Minivault', () => {
       const vault = getVault()
       vault.putSync('id1', {password: 'letmein'})
       vault._config.secret = 'NOPE' + SECRET
-      expect(vault.delete('id1')).to.be.rejected
+      return expect(vault.delete('id1')).to.be.rejected
     })
   })
 
