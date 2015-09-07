@@ -47,10 +47,7 @@
     "build": "gulp build",
     "test": "gulp test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/timdp/minivault-core"
-  },
+  "repository": "timdp/minivault-core",
   "bugs": {
     "url": "https://github.com/timdp/minivault-core/issues"
   },
