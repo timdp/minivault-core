@@ -27,8 +27,8 @@ class Minivault {
     return path.join(this.rootPath, 'index')
   }
   get rootPath () {
-    return (typeof this._config.root === 'string') ? this._config.root :
-      path.join(userHome, '.minivault')
+    return (typeof this._config.root === 'string') ? this._config.root
+      : path.join(userHome, '.minivault')
   }
   get secret () {
     return this._config.secret

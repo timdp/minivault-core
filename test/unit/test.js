@@ -8,8 +8,8 @@ import Minivault from '../../src/'
 
 const getVault = (fixtureID, badAuth) => {
   const secret = badAuth ? 'NOPE' + SECRET : SECRET
-  const root = fixtureID ? path.join(FIXTURES_PATH, fixtureID) :
-    path.join(tmp.dirSync().name, '.minivault')
+  const root = fixtureID ? path.join(FIXTURES_PATH, fixtureID)
+    : path.join(tmp.dirSync().name, '.minivault')
   return new Minivault({secret, root})
 }
 
