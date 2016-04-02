@@ -4,7 +4,6 @@ import gulp from 'gulp'
 import loadPlugins from 'gulp-load-plugins'
 import {Instrumenter} from 'isparta'
 import del from 'del'
-import mkdirp from 'mkdirp'
 import seq from 'run-sequence'
 
 const DEST = 'lib'
@@ -24,16 +23,15 @@ const test = () => {
 gulp.task('clean', () => del.sync(DEST))
 
 gulp.task('build', ['test'], () => {
-  mkdirp.sync(DEST)
   return gulp.src('src/**/*.js')
     .pipe(plumb())
     .pipe($.babel())
     .pipe(gulp.dest(DEST))
 })
 
-gulp.task('cleanbuild', cb => seq('clean', 'build', cb))
+gulp.task('cleanbuild', (cb) => seq('clean', 'build', cb))
 
-gulp.task('coverage', cb => {
+gulp.task('coverage', (cb) => {
   gulp.src('src/**/*.js')
     .pipe(plumb())
     .pipe($.istanbul({instrumenter: Instrumenter}))
