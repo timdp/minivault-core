@@ -1,6 +1,6 @@
 # Minivault (Core)
 
-[![npm](https://img.shields.io/npm/v/minivault-core.svg)](https://www.npmjs.com/package/minivault-core) [![Dependencies](https://img.shields.io/david/timdp/minivault-core.svg)](https://david-dm.org/timdp/minivault-core) [![Build Status](https://img.shields.io/travis/timdp/minivault-core/master.svg)](https://travis-ci.org/timdp/minivault-core) [![Coverage Status](https://img.shields.io/coveralls/timdp/minivault-core/master.svg)](https://coveralls.io/r/timdp/minivault-core) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/feross/standard)
+[![npm](https://img.shields.io/npm/v/minivault-core.svg)](https://www.npmjs.com/package/minivault-core) [![Dependencies](https://img.shields.io/david/timdp/minivault-core.svg)](https://david-dm.org/timdp/minivault-core) [![Build Status](https://img.shields.io/travis/timdp/minivault-core/master.svg)](https://travis-ci.org/timdp/minivault-core) [![Coverage Status](https://img.shields.io/coveralls/timdp/minivault-core/master.svg)](https://coveralls.io/r/timdp/minivault-core) [![JavaScript Standard Style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 A pretty rudimentary vault. Keeps a key-value store under `~/.minivault`,
 encrypted with a password.
