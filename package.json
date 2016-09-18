@@ -38,7 +38,7 @@
     "in-publish": "^2.0.0",
     "isparta": "^4.0.0",
     "run-sequence": "^1.1.5",
-    "tmp": "0.0.28"
+    "tmp": "0.0.29"
   },
   "main": "index.js",
   "files": [
