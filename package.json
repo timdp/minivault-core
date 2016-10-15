@@ -39,7 +39,7 @@
     "isparta": "^4.0.0",
     "run-sequence": "^1.1.5",
     "tmp": "0.0.29",
-    "yargs": "^5.0.0"
+    "yargs": "^6.1.1"
   },
   "main": "index.js",
   "files": [
